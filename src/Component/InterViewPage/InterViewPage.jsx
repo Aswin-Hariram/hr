@@ -1,8 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Orb from '../Orb/Orb.jsx';
 
 export default function InterViewPage() {
     const videoRef = useRef(null); // Reference for the video element
+    const [currentQuestion, setCurrentQuestion] = useState(
+        "Hello! I am micro1’s AI interviewer. Welcome, I’m excited to get to know you. Could you briefly introduce yourself?"
+    );
+    const [topic, setTopic] = useState("Self-Introduction"); // Topic for the question
+    const [timeLeft, setTimeLeft] = useState(25 * 60); // Timer in seconds (25 minutes)
+    const [isTimerRunning, setIsTimerRunning] = useState(false); // Controls whether the timer is running
+    const [isInterviewStarted, setIsInterviewStarted] = useState(false); // Controls whether the interview has started
 
     // Start the camera stream when the component mounts
     useEffect(() => {
@@ -27,17 +34,52 @@ export default function InterViewPage() {
         };
     }, []);
 
+    // Timer logic
+    useEffect(() => {
+        if (!isTimerRunning || timeLeft <= 0) return;
+
+        const timerInterval = setInterval(() => {
+            setTimeLeft((prevTime) => prevTime - 1);
+        }, 1000);
+
+        // Cleanup interval when the component unmounts or timer stops
+        return () => clearInterval(timerInterval);
+    }, [isTimerRunning, timeLeft]);
+
+    // Format the time (MM:SS)
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    };
+
+    // Start the interview
+    const startInterview = () => {
+        setIsInterviewStarted(true);
+        setIsTimerRunning(true); // Start the timer
+    };
+
+    // Reset the interview state
+    const resetInterview = () => {
+        setIsInterviewStarted(false);
+        setIsTimerRunning(false); // Stop the timer
+        setTimeLeft(25 * 60); // Reset timer to 25 minutes
+    };
+
     return (
         <div className="bg-violet-200 h-screen flex flex-col items-center justify-center relative">
-            {/* AppName at the top-left corner */}
-            <div className="text-3xl font-bold text-violet-900 absolute top-6 left-6">micro1.</div>
+            {/* Header */}
+            <div className="w-full absolute top-0 p-4  text-violet-900 flex justify-between items-center shadow-sm">
+                <div className="text-3xl font-bold">AppName.</div>
+                <div className="text-2xl font-bold">{topic}</div>
+                <div className="text-xl font-bold bg-white p-2 rounded-lg text-violet-900">
+                    {formatTime(timeLeft)}
+                </div>
+            </div>
 
-            {/* Timer at the top-right corner */}
-            <div className="text-xl font-bold text-violet-900 absolute top-6 right-6">2:38</div>
-
-            {/* Warning message */}
-            <div className="absolute top-16 bg-red-200 text-red-800 px-4 py-2 rounded-lg font-semibold">
-                You have limited time. Please complete your answer quickly.
+            {/* Dynamic Question with White Background */}
+            <div className="absolute top-32 bg-white p-6 rounded-lg shadow-md max-w-2xl text-center">
+                <p className="text-xl text-gray-800 font-medium">{currentQuestion}</p>
             </div>
 
             {/* Orb centered in the middle with hover effect */}
@@ -45,21 +87,33 @@ export default function InterViewPage() {
                 <Orb hoverIntensity={0.5} rotateOnHover={true} hue={13} forceHoverState={true} />
             </div>
 
-            {/* Interview question text */}
-            <div className="text-xl text-center font-medium text-violet-900 mt-6 max-w-xl">
-                Hello! I am micro1’s AI interviewer. Welcome, I’m excited to get to know you. Could you briefly introduce yourself?
-            </div>
+            {/* Start Interview Button (only shown if interview hasn't started) */}
+            {!isInterviewStarted && (
+                <button
+                    onClick={startInterview}
+                    className="mt-4 px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-300 transition"
+                >
+                    Start Answering
+                </button>
+            )}
 
-            {/* Recording indicator */}
-            <div className="mt-4 py-2 px-6 bg-gray-300 text-gray-700 font-semibold rounded-lg">Recording...</div>
+            {/* Recording indicator (only shown if interview has started) */}
+            {isInterviewStarted && (
+                <div className="mt-4 py-2 px-6 bg-gray-300 text-gray-700 font-semibold rounded-lg">Recording...</div>
+            )}
 
-            {/* Done answering button */}
-            <button className="mt-4 px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition">
-                Done answering? Continue
-            </button>
+            {/* Done answering button (only shown if interview has started) */}
+            {isInterviewStarted && (
+                <button
+                    onClick={resetInterview}
+                    className="mt-4 px-6 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition"
+                >
+                    Done answering? Continue
+                </button>
+            )}
 
             {/* Live Camera Feed */}
-            <div className="absolute bottom-6 left-6 w-60 h-50 bg-black rounded-lg overflow-hidden shadow-lg">
+            <div className="absolute bottom-6 left-6 w-120 h-70 bg-black rounded-lg overflow-hidden shadow-lg">
                 <video ref={videoRef} autoPlay muted className="w-full h-full object-cover"></video>
             </div>
 

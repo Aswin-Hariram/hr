@@ -1,21 +1,21 @@
 import React from 'react';
 
-const NaukriRegistration = () => {
+const Signup = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
       <header className="bg-white shadow-md">
         <div className="container mx-auto flex justify-between items-center py-4 px-6">
-          <a href="https://www.naukri.com">
+          <a href="https://www..com">
             <img
-              src="//static.naukimg.com/s/0/0/i/naukri-identity/naukriLogo.svg"
-              alt="Naukri Logo"
+              src=""
+              alt="Logo"
               className="h-8"
             />
           </a>
           <span className="text-gray-700">
             Already Registered?{' '}
-            <a href="https://www.naukri.com/nlogin/login" className="text-blue-600 hover:underline">
+            <a href="https://www..com/nlogin/login" className="text-blue-600 hover:underline">
               Login
             </a>{' '}
             here
@@ -53,7 +53,7 @@ const NaukriRegistration = () => {
 
         {/* Right Pane */}
         <div className="lg:w-2/3 bg-white p-6 rounded-lg shadow-md">
-          <h1 className="text-2xl font-bold mb-4">Create your Naukri profile</h1>
+          <h1 className="text-2xl font-bold mb-4">Create your profile</h1>
           <p className="text-gray-600 mb-6">
             Search & apply to jobs from India's No.1 Job Site
           </p>
@@ -161,14 +161,14 @@ const NaukriRegistration = () => {
             <div>
               <p className="text-sm text-gray-600">
                 By clicking Register, you agree to the{' '}
-                <a href="https://www.naukri.com/termsconditions" className="text-blue-600 hover:underline">
+                <a href="https://www..com/termsconditions" className="text-blue-600 hover:underline">
                   Terms and Conditions
                 </a>{' '}
                 &{' '}
-                <a href="https://www.naukri.com/privacypolicy" className="text-blue-600 hover:underline">
+                <a href="https://www..com/privacypolicy" className="text-blue-600 hover:underline">
                   Privacy Policy
                 </a>{' '}
-                of Naukri.com
+                of .com
               </p>
               <button
                 type="submit"
@@ -201,11 +201,11 @@ const NaukriRegistration = () => {
         <div className="container mx-auto py-6 px-6 text-center">
           <ul className="flex flex-wrap justify-center space-x-4 mb-4">
             <li><a href="//www.infoedge.in/" className="text-gray-700 hover:text-blue-600">About Us</a></li>
-            <li><a href="https://www.naukri.com/mynaukri/mn_contactus.php" className="text-gray-700 hover:text-blue-600">Contact Us</a></li>
-            <li><a href="//my.naukri.com/faq/faq.php" className="text-gray-700 hover:text-blue-600">FAQs</a></li>
-            <li><a href="https://www.naukri.com/termsconditions" className="text-gray-700 hover:text-blue-600">Terms and Conditions</a></li>
-            <li><a href="//w5.naukri.com/fdbck/main/feedback.php" className="text-gray-700 hover:text-blue-600">Report a Problem</a></li>
-            <li><a href="https://www.naukri.com/privacypolicy" className="text-gray-700 hover:text-blue-600">Privacy Policy</a></li>
+            <li><a href="https://www..com//mn_contactus.php" className="text-gray-700 hover:text-blue-600">Contact Us</a></li>
+            <li><a href="//my..com/faq/faq.php" className="text-gray-700 hover:text-blue-600">FAQs</a></li>
+            <li><a href="https://www..com/termsconditions" className="text-gray-700 hover:text-blue-600">Terms and Conditions</a></li>
+            <li><a href="//w5..com/fdbck/main/feedback.php" className="text-gray-700 hover:text-blue-600">Report a Problem</a></li>
+            <li><a href="https://www..com/privacypolicy" className="text-gray-700 hover:text-blue-600">Privacy Policy</a></li>
           </ul>
           <p className="text-gray-600">All rights reserved © 2025 Info Edge India Ltd.</p>
         </div>
@@ -214,4 +214,4 @@ const NaukriRegistration = () => {
   );
 };
 
-export default NaukriRegistration;
+export default Signup;
